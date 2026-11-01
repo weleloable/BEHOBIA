@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Operación Behobia 2026</title>
+<meta name="theme-color" content="#0b1f3a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0b1f3a; --navy2:#13305a; --sea:#1d6fb8; --lime:#d7ff3a; --red:#ff4d4d;
+    --paper:#fffdf6; --ink:#0b1f3a; --muted:#6b7a90; --ok:#22c55e;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;background:var(--navy);color:var(--paper);
+    font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;}
+  body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:520px;margin:0 auto;padding:18px 16px 40px}
+  h1,h2,h3{margin:0;font-weight:800;letter-spacing:-.02em}
+  p{line-height:1.45}
+  button{font:inherit;cursor:pointer;border:0}
+  .hidden{display:none!important}
+
+  /* header dorsal */
+  .bib{background:var(--paper);color:var(--ink);border-radius:18px;padding:18px 18px 16px;position:relative;
+    box-shadow:0 8px 0 rgba(0,0,0,.25);margin-bottom:18px;overflow:hidden}
+  .bib:before,.bib:after{content:"";position:absolute;top:12px;width:12px;height:12px;border-radius:50%;background:var(--navy)}
+  .bib:before{left:12px}.bib:after{right:12px}
+  .bib .tag{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sea);text-align:center}
+  .bib .num{font-size:64px;line-height:.95;font-weight:800;text-align:center;margin:6px 0 2px}
+  .bib .sub{text-align:center;font-size:15px;color:var(--muted)}
+  .stripe{height:8px;margin:12px -18px -16px;background:repeating-linear-gradient(90deg,var(--red) 0 22px,var(--sea) 22px 44px)}
+
+  .card{background:var(--navy2);border-radius:18px;padding:16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.08)}
+  .menu{display:grid;gap:12px}
+  .menu button{display:flex;align-items:center;gap:14px;text-align:left;background:var(--navy2);color:var(--paper);
+    border-radius:18px;padding:16px;border:1px solid rgba(255,255,255,.1);transition:transform .1s}
+  .menu button:active{transform:scale(.98)}
+  .menu .ico{font-size:30px;width:52px;height:52px;display:grid;place-items:center;background:rgba(255,255,255,.08);border-radius:14px;flex:none}
+  .menu b{display:block;font-size:19px}
+  .menu small{color:#b7c3d6;font-size:14px}
+  .menu .main{background:var(--lime);color:var(--ink)}
+  .menu .main small{color:#3b4a2a}
+  .menu .main .ico{background:rgba(11,31,58,.1)}
+
+  .top{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .back{background:rgba(255,255,255,.1);color:var(--paper);width:42px;height:42px;border-radius:12px;font-size:20px;flex:none}
+  .top h2{font-size:24px}
+
+  .btn{display:block;width:100%;padding:16px;border-radius:14px;font-size:18px;font-weight:800;background:var(--lime);color:var(--ink);margin-top:10px}
+  .btn.sec{background:rgba(255,255,255,.12);color:var(--paper)}
+  .btn.wa{background:#25d366;color:#05301a}
+  .btn:disabled{opacity:.4}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .chip{padding:14px 10px;border-radius:14px;background:rgba(255,255,255,.08);color:var(--paper);font-size:16px;font-weight:600;
+    border:2px solid transparent}
+  .chip.sel{border-color:var(--lime);background:rgba(215,255,58,.12)}
+  .carlabel{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#9fb0c8;margin:14px 0 8px;font-weight:800}
+
+  /* misiones */
+  .envelope{background:var(--paper);color:var(--ink);border-radius:18px;padding:22px 18px;text-align:center;
+    box-shadow:0 8px 0 rgba(0,0,0,.25)}
+  .envelope .who{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:800}
+  .envelope .target{font-size:34px;margin:6px 0 10px}
+  .envelope .task{font-size:20px;line-height:1.35}
+  .stamp{display:inline-block;border:3px solid var(--red);color:var(--red);padding:4px 10px;border-radius:8px;transform:rotate(-6deg);
+    font-weight:800;letter-spacing:.1em;margin-bottom:10px}
+
+  /* quiz */
+  .qhead{display:flex;justify-content:space-between;align-items:center;font-weight:800;color:#b7c3d6;font-size:15px}
+  .timer{height:8px;background:rgba(255,255,255,.1);border-radius:8px;overflow:hidden;margin:10px 0 16px}
+  .timer i{display:block;height:100%;background:var(--lime);width:100%;transition:width .2s linear}
+  .qtext{font-size:23px;line-height:1.3;margin-bottom:16px}
+  .opts{display:grid;gap:10px}
+  .opt{padding:16px;border-radius:14px;background:var(--paper);color:var(--ink);font-size:18px;font-weight:600;text-align:left;
+    display:flex;gap:12px;align-items:center}
+  .opt .l{width:30px;height:30px;border-radius:9px;background:var(--navy);color:var(--paper);display:grid;place-items:center;font-weight:800;flex:none;font-size:15px}
+  .opt.right{background:var(--ok);color:#fff}
+  .opt.wrong{background:var(--red);color:#fff}
+  .opt.gone{opacity:.15}
+  .fact{margin-top:14px;padding:14px;border-radius:14px;background:rgba(215,255,58,.1);border:1px solid rgba(215,255,58,.35);font-size:16px}
+  .tools{display:flex;gap:10px;margin-top:14px}
+  .tools button{flex:1;padding:12px;border-radius:12px;background:rgba(255,255,255,.1);color:var(--paper);font-weight:800}
+  .big{font-size:72px;font-weight:800;text-align:center;color:var(--lime);line-height:1}
+  .center{text-align:center}
+  .pill{display:inline-block;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.12);font-size:13px;font-weight:800}
+
+  input,textarea{width:100%;padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);
+    color:var(--paper);font:inherit;font-size:18px}
+  input:focus,textarea:focus{outline:none;border-color:var(--lime)}
+  label{display:block;font-weight:800;margin:14px 0 6px;font-size:15px}
+  .hint{color:#9fb0c8;font-size:14px;margin-top:4px}
+
+  /* marcador */
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#9fb0c8;text-align:center;padding:6px 2px}
+  th:first-child{text-align:left}
+  td{padding:6px 2px;border-top:1px solid rgba(255,255,255,.08);text-align:center}
+  td:first-child{text-align:left;font-weight:800}
+  td input{width:58px;padding:8px 4px;font-size:16px;text-align:center}
+  .podium{display:grid;gap:8px}
+  .row{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.07);padding:12px 14px;border-radius:14px;font-size:18px}
+  .row .pos{font-size:26px;width:38px;text-align:center}
+  .row .pts{margin-left:auto;font-weight:800;color:var(--lime)}
+  .row.first{background:var(--lime);color:var(--ink)}
+  .row.first .pts{color:var(--ink)}
+  .reveal{font-size:15px;padding:10px 0;border-top:1px solid rgba(255,255,255,.08)}
+  .reveal b{color:var(--lime)}
+  .footer{text-align:center;color:#6f82a0;font-size:13px;margin-top:22px}
+  @keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+  .pop{animation:pop .35s ease-out}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+/* ================== CONFIGURACIÓN (editable) ================== */
+const COCHES = [
+  { id:1, nombre:"Coche de Chus",        conductor:"Chus",         pasajeros:["Lucía","Isabel"] },
+  { id:2, nombre:"Coche de Luis",        conductor:"Luis",         pasajeros:["Fernando","Paula","Fran","Edurne"] },
+  { id:3, nombre:"Coche de Raúl",        conductor:"Raúl",         pasajeros:["Raquel"], comodines:2 },
+  { id:4, nombre:"Coche de Paula Rovira",conductor:"Paula Rovira", pasajeros:["Rosa","Sandra"] },
+  { id:5, nombre:"Coche de Jorge",       conductor:"Jorge",        pasajeros:["José Enrique","Merche","Invitado/a de Jorge"] },
+];
+const VETERANOS = ["Luis","Fernando","Raúl"];
+const DEBUTANTE = "Isabel";
+const PIN_PRESENTADORA = "1919";
+const CODIGO_RONDA2 = "MORCILLA";
+const SEGUNDOS = 25;
+
+const MISIONES = [
+  "Averigua a qué se dedica {T}… sin preguntárselo directamente.",
+  "Consigue que {T} te invite a algo: un café, un chicle, una patata frita… lo que sea.",
+  "Hazte un selfie en el que salga {T} detrás de ti sin que se dé cuenta.",
+  "Consigue que {T} diga la palabra «agujetas».",
+  "Logra que {T} te enseñe una foto de su móvil (mascota, hijos, vacaciones…).",
+  "Choca los cinco con {T} tres veces antes de la cena del sábado.",
+  "Haz que {T} pruebe algo típico de Burgos y que te dé las gracias.",
+  "Averigua el mejor tiempo de {T} en cualquier carrera.",
+  "Consigue que {T} te dé un consejo para la carrera… y que te lo repita.",
+  "Logra que {T} cante, aunque sea un trozo, alguna canción.",
+  "Haz que {T} se ría con un chiste malo tuyo.",
+  "Averigua de qué pueblo es la familia de {T}.",
+  "Consigue que {T} te preste algo (gorra, gafas, boli…) y devuélveselo al final.",
+  "Haz que {T} diga «¡Aupa!» sin pedírselo directamente.",
+  "Consigue sentarte al lado de {T} en la cena del sábado.",
+  "Hazte una foto con {T} en la que los dos pongáis exactamente la misma pose.",
+  "Consigue que {T} te diga cuál es su canción para correr.",
+];
+
+const RONDAS = {
+  1: { titulo:"Ronda 1 · Madrid → Burgos", preguntas:[
+    { q:"¿Cuántos kilómetros tiene la Behobia–San Sebastián?", o:["21,097 km","20 km","18 km","25 km"], a:1,
+      f:"Son 20 km, no una media maratón. ¡Aunque con las cuestas parecen más!" },
+    { q:"¿En qué año se corrió la primera Behobia?", o:["1919","1951","1936","1979"], a:0,
+      f:"El 30 de marzo de 1919. Más de 100 años de historia." },
+    { q:"¿Cuántos del grupo ya han corrido la Behobia antes?", o:["Ninguno","Uno","Tres","Todos menos Isabel"], a:2,
+      f:"Luis, Fernando y Raúl. ¡Veteranos, os toca dar consejos!" },
+    { q:"¿Qué es el Papamoscas de Burgos?", o:["Un pájaro típico de la sierra","Un dulce de hojaldre","Una figura de la catedral que abre la boca al dar la hora","Un bar mítico de la Plaza Mayor"], a:2,
+      f:"Está en lo alto de la nave de la catedral y abre la boca al sonar las campanadas." },
+    { q:"¿Qué lleva la auténtica morcilla de Burgos?", o:["Patata","Arroz","Pan","Garbanzos"], a:1,
+      f:"Arroz, cebolla, sangre, manteca y especias." },
+    { q:"¿Cómo se llamaba el caballo del Cid?", o:["Rocinante","Bucéfalo","Babieca","Marengo"], a:2,
+      f:"Babieca. Rocinante era el de don Quijote." },
+    { q:"¿Por qué es famosa Atapuerca, cerca de Burgos?", o:["Por sus bodegas","Por sus yacimientos de los primeros humanos de Europa","Por un monasterio templario","Por una batalla napoleónica"], a:1,
+      f:"Sus yacimientos son clave para conocer la evolución humana." },
+    { q:"¿Cuánto mide una maratón?", o:["40 km justos","42,195 km","41,5 km","45 km"], a:1,
+      f:"42,195 km. La Behobia, con 20, no es ni media… pero casi." },
+  ]},
+  2: { titulo:"Ronda 2 · Burgos → Donosti", preguntas:[
+    { q:"¿Dónde está la salida de la Behobia?", o:["En Hondarribia","En Behobia, un barrio de Irun junto a Francia","En Pasaia","En Hendaya (Francia)"], a:1,
+      f:"Junto al puente internacional, en plena frontera con Francia." },
+    { q:"¿Qué río se ve junto a la salida?", o:["Urumea","Bidasoa","Ebro","Nervión"], a:1,
+      f:"El Bidasoa hace de frontera. El Urumea es el que cruza Donosti." },
+    { q:"En la Isla de los Faisanes, muy cerca de la salida, se firmó…", o:["La Paz de los Pirineos","El Tratado de Tordesillas","La Paz de Westfalia","La Constitución de Bayona"], a:0,
+      f:"En 1659. Es una isla que España y Francia gestionan por turnos de 6 meses." },
+    { q:"¿Cuántos corredores tomaron la salida en la primera edición?", o:["7","22","150","1.000"], a:1,
+      f:"22 atletas en 1919. Hoy son unos 30.000." },
+    { q:"¿Cuál es el alto más temido del recorrido?", o:["Jaizkibel","Igueldo","Gaintxurizketa","Urgull"], a:2,
+      f:"Gaintxurizketa. Luego llega Miracruz, casi al final." },
+    { q:"¿Dónde está la meta?", o:["En la playa de la Concha","En el estadio de Anoeta","En el Boulevard","En el Kursaal"], a:2,
+      f:"En el Boulevard, en pleno centro de Donosti." },
+    { q:"¿Quién hizo el Peine del Viento?", o:["Jorge Oteiza","Eduardo Chillida","Rafael Moneo","Frank Gehry"], a:1,
+      f:"Eduardo Chillida, donostiarra. Moneo hizo el Kursaal." },
+    { q:"¿Qué lleva una Gilda, el pintxo nacido en Donosti?", o:["Pimiento, gamba y huevo","Guindilla, aceituna y anchoa","Jamón, queso y tomate","Bacalao y pimiento"], a:1,
+      f:"Se llama así por Rita Hayworth: «verde, salada y un poco picante»." },
+  ]},
+};
+
+/* ================== UTILIDADES ================== */
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const store = {
+  get(k,d){ try{ const v=localStorage.getItem("bss26_"+k); return v?JSON.parse(v):d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem("bss26_"+k, JSON.stringify(v)); }catch(e){} }
+};
+const PERSONAS = COCHES.flatMap(c => [c.conductor, ...c.pasajeros].map(n => ({ nombre:n, coche:c.id })));
+// Objetivo: la persona 7 puestos más allá (siempre de otro coche)
+function objetivo(i){ return PERSONAS[(i+7) % PERSONAS.length].nombre; }
+function mision(i){ return MISIONES[i % MISIONES.length].replace("{T}", objetivo(i)); }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const wa = txt => "https://wa.me/?text=" + encodeURIComponent(txt);
+let timerId = null;
+function stopTimer(){ if(timerId){ clearInterval(timerId); timerId=null; } }
+function hdr(title, backTo="home"){
+  return `<div class="top"><button class="back" onclick="go('${backTo}')">←</button><h2>${title}</h2></div>`;
+}
+function go(view, arg){ stopTimer(); window.scrollTo(0,0); VIEWS[view](arg); }
+
+/* ================== VISTAS ================== */
+const VIEWS = {};
+
+VIEWS.home = () => {
+  app.innerHTML = `
+    <div class="bib">
+      <div class="tag">Madrid → Donostia · 8 nov 2026</div>
+      <div class="num">BEHOBIA</div>
+      <div class="sub">Operación de los 5 coches</div>
+      <div class="stripe"></div>
+    </div>
+    <div class="menu">
+      <button class="main" onclick="go('misiones')"><span class="ico">🕵️</span><span><b>Mi misión secreta</b><small>Solo para tus ojos. No se la enseñes a nadie.</small></span></button>
+      <button onclick="go('quizCoche')"><span class="ico">🧠</span><span><b>Concurso por coches</b><small>Juega el copiloto. ¡El conductor, ojos en la carretera!</small></span></button>
+      <button onclick="go('porra')"><span class="ico">⏱️</span><span><b>La porra</b><small>¿Cuánto tardará la debutante? ¿Y tú?</small></span></button>
+      <button onclick="go('reglas')"><span class="ico">📜</span><span><b>Cómo se juega</b><small>Reglas en 30 segundos</small></span></button>
+      <button onclick="go('pin')"><span class="ico">🎤</span><span><b>Modo presentadora</b><small>Solo Isabel</small></span></button>
+    </div>
+    <div class="footer">Hecho con cariño para la primera Behobia de Isabel 💛</div>`;
+};
+
+VIEWS.reglas = () => {
+  app.innerHTML = hdr("Cómo se juega") + `
+    <div class="card"><h3>🕵️ Misiones secretas</h3><p>Cada uno tiene una misión con alguien de <b>otro coche</b>. Tenéis hasta la cena del sábado. Al final se revelan todas y cada misión cumplida suma <b>50 puntos</b> a tu coche.</p></div>
+    <div class="card"><h3>🧠 Concurso</h3><p>Dos rondas de 8 preguntas, una por tramo. Responde el copiloto (o quien vaya detrás) en un solo móvil por coche. Acertar da 100 puntos y responder rápido, hasta 50 extra. La <b>ronda 2</b> se desbloquea con un código que Isabel dará en Burgos.</p></div>
+    <div class="card"><h3>📸 Reto de Burgos</h3><p>En la parada, Isabel anunciará un reto para cada coche. Hasta 100 puntos.</p></div>
+    <div class="card"><h3>⏱️ La porra</h3><p>Apuesta el tiempo de Isabel en su debut y el tuyo. Gana quien más se acerque al tiempo real de Isabel. ¡Premio de honor para quien clave el suyo!</p></div>
+    <div class="card"><h3>🚗 Regla de oro</h3><p>Quien conduce <b>no toca el móvil</b>. Puede gritar respuestas, eso sí.</p></div>`;
+};
+
+/* ---------- MISIONES ---------- */
+VIEWS.misiones = () => {
+  app.innerHTML = hdr("¿Quién eres?") + `<p>Toca tu nombre. Sé honesto/a: no mires las misiones de otros 🤫</p>` +
+    COCHES.map(c => `<div class="carlabel">${esc(c.nombre)}</div><div class="grid2">` +
+      [c.conductor, ...c.pasajeros].map(n => {
+        const i = PERSONAS.findIndex(p => p.nombre === n);
+        return `<button class="chip" onclick="go('misionConfirm',${i})">${esc(n)}</button>`;
+      }).join("") + `</div>`).join("");
+};
+VIEWS.misionConfirm = i => {
+  app.innerHTML = hdr("Confirmación","misiones") + `
+    <div class="card center"><p style="font-size:20px">¿Seguro que eres<br><b style="font-size:30px">${esc(PERSONAS[i].nombre)}</b>?</p>
+    <p class="hint">Asegúrate de que nadie mira tu pantalla.</p>
+    <button class="btn" onclick="go('misionVer',${i})">Sí, soy yo. Ver mi misión</button>
+    <button class="btn sec" onclick="go('misiones')">No, me he equivocado</button></div>`;
+};
+VIEWS.misionVer = i => {
+  app.innerHTML = hdr("Tu misión","home") + `
+    <div class="envelope pop">
+      <div class="stamp">TOP SECRET</div>
+      <div class="who">Tu objetivo</div>
+      <div class="target">${esc(objetivo(i))}</div>
+      <div class="task">${esc(mision(i))}</div>
+    </div>
+    <div class="card" style="margin-top:16px"><p style="margin:0">⏳ Tienes hasta la <b>cena del sábado</b>. Si te pillan, disimula. Al final Isabel revelará todas las misiones.</p></div>
+    <button class="btn" onclick="go('home')">Entendido. Ocultar 🙈</button>`;
+};
+
+/* ---------- QUIZ ---------- */
+let Q = null; // estado de partida
+VIEWS.quizCoche = () => {
+  app.innerHTML = hdr("¿Qué coche sois?") + `<p>Un solo móvil por coche. Quien conduce no juega 🚗</p><div class="menu">` +
+    COCHES.map(c => `<button onclick="go('quizRonda',${c.id})"><span class="ico">🚗</span><span><b>${esc(c.nombre)}</b><small>${esc(c.pasajeros.join(", "))}</small></span></button>`).join("") + `</div>`;
+};
+VIEWS.quizRonda = cid => {
+  const c = COCHES.find(x => x.id === cid);
+  const r1 = store.get(`res_${cid}_1`, null), r2 = store.get(`res_${cid}_2`, null);
+  app.innerHTML = hdr(esc(c.nombre),"quizCoche") + `
+    <div class="menu">
+      <button class="main" onclick="${r1!==null?`go('quizFin',{cid:${cid},r:1})`:`startQuiz(${cid},1)`}"><span class="ico">🛣️</span><span><b>${RONDAS[1].titulo}</b><small>${r1!==null?`Ya jugada: ${r1} puntos`:"¡Arrancamos!"}</small></span></button>
+      <button onclick="${r2!==null?`go('quizFin',{cid:${cid},r:2})`:`go('codigo',${cid})`}"><span class="ico">${r2!==null?"✅":"🔒"}</span><span><b>${RONDAS[2].titulo}</b><small>${r2!==null?`Ya jugada: ${r2} puntos`:"Necesitas el código que da Isabel en Burgos"}</small></span></button>
+    </div>`;
+};
+VIEWS.codigo = cid => {
+  app.innerHTML = hdr("Código secreto",`quizRonda',${cid},'`) + `
+    <div class="card"><p>Isabel os dará el código en la parada de Burgos.</p>
+    <input id="cod" placeholder="Escribe el código" autocomplete="off" autocapitalize="characters">
+    <p id="err" class="hint"></p>
+    <button class="btn" onclick="checkCodigo(${cid})">Desbloquear</button></div>`;
+  $(".back").onclick = () => go('quizRonda', cid);
+};
+function checkCodigo(cid){
+  const v = $("#cod").value.trim().toUpperCase();
+  if(v === CODIGO_RONDA2) startQuiz(cid, 2);
+  else $("#err").textContent = "Ese no es… ¿seguro que no lo has soñado?";
+}
+function startQuiz(cid, r){
+  const c = COCHES.find(x => x.id === cid);
+  Q = { cid, r, i:0, pts:0, aciertos:0, comodines: c.comodines || 1 };
+  go('pregunta');
+}
+VIEWS.pregunta = () => {
+  const P = RONDAS[Q.r].preguntas, p = P[Q.i];
+  let left = SEGUNDOS * 10;
+  app.innerHTML = `
+    <div class="qhead"><span>Pregunta ${Q.i+1}/${P.length}</span><span class="pill">${Q.pts} pts</span></div>
+    <div class="timer"><i id="bar"></i></div>
+    <div class="qtext">${esc(p.q)}</div>
+    <div class="opts">${p.o.map((o,k)=>`<button class="opt" data-k="${k}" onclick="responder(${k})"><span class="l">${"ABCD"[k]}</span>${esc(o)}</button>`).join("")}</div>
+    <div class="tools"><button id="fifty" onclick="cincuenta()" ${Q.comodines<1?"disabled style='opacity:.35'":""}>50/50 · quedan ${Q.comodines}</button></div>
+    <div id="after"></div>`;
+  Q.answered = false; Q.t0 = Date.now();
+  timerId = setInterval(() => {
+    left--; $("#bar").style.width = (left/(SEGUNDOS*10)*100) + "%";
+    if(left <= 0){ stopTimer(); responder(-1); }
+  }, 100);
+};
+function cincuenta(){
+  if(Q.comodines < 1 || Q.answered) return;
+  Q.comodines--;
+  const p = RONDAS[Q.r].preguntas[Q.i];
+  const malas = [0,1,2,3].filter(k => k !== p.a).sort(() => Math.random()-.5).slice(0,2);
+  malas.forEach(k => { const b = document.querySelector(`.opt[data-k="${k}"]`); b.classList.add("gone"); b.disabled = true; });
+  const f = $("#fifty"); f.disabled = true; f.style.opacity = .35; f.textContent = `50/50 · quedan ${Q.comodines}`;
+}
+function responder(k){
+  if(Q.answered) return; Q.answered = true; stopTimer();
+  const p = RONDAS[Q.r].preguntas[Q.i];
+  const secs = (Date.now() - Q.t0) / 1000;
+  let ganados = 0;
+  if(k === p.a){ ganados = 100 + Math.max(0, Math.round(50 * (1 - secs / SEGUNDOS))); Q.pts += ganados; Q.aciertos++; }
+  document.querySelectorAll(".opt").forEach(b => {
+    const kk = +b.dataset.k; b.disabled = true;
+    if(kk === p.a) b.classList.add("right"); else if(kk === k) b.classList.add("wrong");
+  });
+  const ultima = Q.i === RONDAS[Q.r].preguntas.length - 1;
+  $("#after").innerHTML = `<div class="fact pop"><b>${k===p.a?`¡Bien! +${ganados}`:k===-1?"¡Se acabó el tiempo!":"¡Uy, casi!"}</b><br>${esc(p.f)}</div>
+    <button class="btn" onclick="${ultima?"finQuiz()":"Q.i++;go('pregunta')"}">${ultima?"Ver resultado 🏁":"Siguiente →"}</button>`;
+}
+function finQuiz(){
+  store.set(`res_${Q.cid}_${Q.r}`, Q.pts);
+  store.set(`ac_${Q.cid}_${Q.r}`, Q.aciertos);
+  go('quizFin', { cid:Q.cid, r:Q.r });
+}
+VIEWS.quizFin = ({cid, r}) => {
+  const c = COCHES.find(x => x.id === cid);
+  const pts = store.get(`res_${cid}_${r}`, 0), ac = store.get(`ac_${cid}_${r}`, "?");
+  const msg = `🏁 ${c.nombre} · ${RONDAS[r].titulo}\n✅ ${ac}/8 aciertos\n🔥 ${pts} puntos\n#OperaciónBehobia`;
+  app.innerHTML = hdr("Resultado",`home`) + `
+    <div class="card center pop">
+      <div class="pill">${esc(c.nombre)}</div>
+      <p style="margin:14px 0 4px">${RONDAS[r].titulo}</p>
+      <div class="big">${pts}</div><p>puntos · ${ac}/8 aciertos</p>
+    </div>
+    <a href="${wa(msg)}" target="_blank" style="text-decoration:none"><button class="btn wa">📲 Mandar resultado al grupo</button></a>
+    <button class="btn sec" onclick="go('quizRonda',${cid})">Volver</button>`;
+};
+
+/* ---------- PORRA ---------- */
+VIEWS.porra = () => {
+  app.innerHTML = hdr("La porra") + `
+    <div class="card"><p style="margin-top:0">Es la <b>primera Behobia de Isabel</b>. ¿Cuánto tardará? Gana quien más se acerque a su tiempo real. ¡Premio de honor para quien clave el suyo!</p>
+    <label>¿Quién eres?</label>
+    <select id="yo" style="width:100%;padding:14px;border-radius:12px;font:inherit;font-size:18px;background:#fffdf6;color:#0b1f3a">
+      <option value="">Elige tu nombre…</option>
+      ${PERSONAS.map(p=>`<option>${esc(p.nombre)}</option>`).join("")}
+    </select>
+    <label id="lblIsa">⏱️ Tiempo de Isabel</label>
+    <input id="tIsa" placeholder="Ej.: 2:05" inputmode="numeric">
+    <label>🏃 Tu tiempo</label>
+    <input id="tYo" placeholder="Ej.: 1:52" inputmode="numeric">
+    <div id="vet" class="hidden"><label>🎖️ Eres veterano/a: un consejo para la debutante</label>
+    <textarea id="consejo" rows="3" placeholder="Ej.: Guarda fuerzas para Miracruz…"></textarea></div>
+    <p class="hint">Formato horas:minutos. Se manda al grupo de WhatsApp para que quede por escrito.</p>
+    <button class="btn wa" onclick="enviarPorra()">📲 Enviar mi porra al grupo</button></div>`;
+  $("#yo").onchange = e => {
+    const v = e.target.value;
+    $("#vet").classList.toggle("hidden", !VETERANOS.includes(v));
+    const esIsa = v === DEBUTANTE;
+    $("#tIsa").parentNode && ($("#tIsa").style.display = esIsa ? "none" : "");
+    $("#lblIsa").style.display = esIsa ? "none" : "";
+  };
+};
+function enviarPorra(){
+  const yo = $("#yo").value, ti = $("#tIsa").value.trim(), ty = $("#tYo").value.trim(), co = ($("#consejo")||{}).value || "";
+  if(!yo){ alert("Elige tu nombre"); return; }
+  let msg = `⏱️ PORRA BEHOBIA · ${yo}\n`;
+  if(yo !== DEBUTANTE) msg += `👑 Isabel: ${ti || "?"}\n`;
+  msg += `🏃 Yo: ${ty || "?"}`;
+  if(co.trim()) msg += `\n🎖️ Consejo para Isabel: ${co.trim()}`;
+  window.open(wa(msg), "_blank");
+}
+
+/* ---------- PRESENTADORA ---------- */
+VIEWS.pin = () => {
+  app.innerHTML = hdr("Modo presentadora") + `
+    <div class="card"><label>PIN</label><input id="pin" inputmode="numeric" type="password" placeholder="••••">
+    <p id="err" class="hint"></p><button class="btn" onclick="checkPin()">Entrar</button></div>`;
+};
+function checkPin(){ if($("#pin").value === PIN_PRESENTADORA) go('panel'); else $("#err").textContent = "PIN incorrecto"; }
+
+const CATS = [ ["r1","R1"], ["r2","R2"], ["burgos","Burgos"], ["mis","Misiones"] ];
+function marcador(){ return store.get("marcador", {}); }
+function total(cid){ const m = marcador()[cid] || {}; return CATS.reduce((s,[k]) => s + (+m[k] || 0), 0); }
+
+VIEWS.panel = () => {
+  const m = marcador();
+  app.innerHTML = hdr("Panel de Isabel") + `
+    <div class="card"><h3>🔑 Código ronda 2</h3><p style="margin-bottom:0">Dilo en voz alta en Burgos: <span class="pill" style="font-size:18px;background:var(--lime);color:var(--ink)">${CODIGO_RONDA2}</span></p></div>
+    <div class="card"><h3>📸 Reto de Burgos (hasta 100 pts)</h3>
+      <p>Cada coche tiene <b>5 minutos</b> para recrear con lo que tenga a mano <b>la foto de llegada a meta de la Behobia</b>: pancarta, medalla, cronómetro, público… Isabel puntúa la creatividad.</p>
+      <p style="margin-bottom:0">🎁 <b>Bonus +30:</b> el coche que más se acerque a la hora de llegada a Donosti (apuntadla ahora).</p></div>
+    <div class="card"><h3>🧮 Marcador</h3>
+      <p class="hint">Los coches os mandan sus puntos del concurso por WhatsApp. Misiones: 50 pts por cada misión cumplida.</p>
+      <table><tr><th>Coche</th>${CATS.map(([,l])=>`<th>${l}</th>`).join("")}</tr>
+      ${COCHES.map(c=>`<tr><td>${esc(c.conductor)}</td>${CATS.map(([k])=>`<td><input inputmode="numeric" value="${(m[c.id]||{})[k]??""}" onchange="setPts(${c.id},'${k}',this.value)"></td>`).join("")}</tr>`).join("")}
+      </table>
+      <button class="btn" onclick="go('clasif')">🏆 Mostrar clasificación</button></div>
+    <div class="card"><h3>🕵️ Revelar misiones</h3><p>Solo al final, ¡que no lo vea nadie antes!</p>
+      <button class="btn sec" onclick="if(confirm('¿Revelar todas las misiones?')) go('revelar')">Revelar todas</button></div>
+    <div class="card"><h3>🔁 Reiniciar marcador</h3><button class="btn sec" onclick="if(confirm('¿Borrar todos los puntos?')){store.set('marcador',{});go('panel')}">Borrar puntos</button></div>`;
+};
+function setPts(cid,k,v){ const m = marcador(); m[cid] = m[cid] || {}; m[cid][k] = v.replace(/\D/g,""); store.set("marcador", m); }
+
+VIEWS.clasif = () => {
+  const orden = [...COCHES].sort((a,b) => total(b.id) - total(a.id));
+  const med = ["🥇","🥈","🥉","4","5"];
+  app.innerHTML = hdr("Clasificación","panel") + `<div class="podium">` +
+    orden.map((c,i) => `<div class="row pop ${i===0?"first":""}" style="animation-delay:${(orden.length-i)*.25}s;animation-fill-mode:both"><span class="pos">${med[i]}</span><span>${esc(c.nombre)}</span><span class="pts">${total(c.id)}</span></div>`).join("") +
+    `</div>`;
+};
+VIEWS.revelar = () => {
+  app.innerHTML = hdr("Las misiones","panel") + `<div class="card">` +
+    PERSONAS.map((p,i) => `<div class="reveal"><b>${esc(p.nombre)}</b> → ${esc(mision(i))}</div>`).join("") + `</div>`;
+};
+
+go('home');
+</script>
+</body>
+</html>
