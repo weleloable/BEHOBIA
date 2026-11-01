@@ -109,6 +109,19 @@
   .reveal{font-size:15px;padding:10px 0;border-top:1px solid rgba(255,255,255,.08)}
   .reveal b{color:var(--lime)}
   .footer{text-align:center;color:#6f82a0;font-size:13px;margin-top:22px}
+  .helplink{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:14px;margin:0 0 14px;
+    background:rgba(215,255,58,.12);border:2px dashed rgba(215,255,58,.6);color:var(--lime);font-size:16px;font-weight:800}
+  .welcome{background:var(--red);color:#fff;border-radius:18px;padding:14px 16px;margin-bottom:12px;display:flex;gap:12px;align-items:center;text-align:left;width:100%}
+  .welcome b{font-size:18px;display:block}.welcome small{font-size:14px;opacity:.9}
+  .gstep{background:var(--navy2);border-radius:18px;padding:16px;margin-bottom:12px;border:1px solid rgba(255,255,255,.08)}
+  .gstep .gn{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;font-weight:800;font-size:18px;margin-right:8px;vertical-align:middle}
+  .gstep p{font-size:19px;margin:10px 0 0;line-height:1.4}
+  .gstep img{display:block;width:72%;margin:14px auto 0;border-radius:16px;border:3px solid rgba(255,255,255,.25)}
+  .gnote{background:rgba(255,214,90,.12);border:2px solid #f2c94c;border-radius:14px;padding:12px 14px;font-size:17px;margin-bottom:12px;line-height:1.4}
+  .gwarn{background:rgba(255,77,77,.15);border:2px solid var(--red);border-radius:14px;padding:12px 14px;font-size:17px;margin-bottom:12px;line-height:1.4}
+  .tl{border-left:5px solid var(--sea);padding:6px 0 6px 14px;margin-bottom:10px}
+  .tl > b{display:block;font-size:19px;color:var(--lime)}.tl span{font-size:17px;line-height:1.4}
+  .code{display:inline-block;background:var(--lime);color:var(--ink);padding:1px 8px;border-radius:7px;font-weight:800}
   @keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
   .pop{animation:pop .35s ease-out}
 </style>
@@ -221,11 +234,12 @@ VIEWS.home = () => {
       <div class="sub">Operación de los 5 coches</div>
       <div class="stripe"></div>
     </div>
+    <button class="welcome" onclick="go('ayuda')"><span style="font-size:30px">👋</span><span><b>¿Primera vez? Empieza aquí</b><small>Guía paso a paso con dibujos. 2 minutos.</small></span></button>
     <div class="menu">
       <button class="main" onclick="go('misiones')"><span class="ico">🕵️</span><span><b>Mi misión secreta</b><small>Solo para tus ojos. No se la enseñes a nadie.</small></span></button>
       <button onclick="go('quizCoche')"><span class="ico">🧠</span><span><b>Concurso por coches</b><small>Juega el copiloto. ¡El conductor, ojos en la carretera!</small></span></button>
       <button onclick="go('porra')"><span class="ico">⏱️</span><span><b>La porra</b><small>¿Cuánto tardará la debutante? ¿Y tú?</small></span></button>
-      <button onclick="go('reglas')"><span class="ico">📜</span><span><b>Cómo se juega</b><small>Reglas en 30 segundos</small></span></button>
+      <button onclick="go('ayuda')"><span class="ico">📖</span><span><b>Guía y reglas</b><small>Cómo se juega, paso a paso</small></span></button>
       <button onclick="go('pin')"><span class="ico">🎤</span><span><b>Modo presentadora</b><small>Solo Isabel</small></span></button>
     </div>
     <div class="footer">Hecho con cariño para la primera Behobia de Isabel 💛</div>`;
@@ -242,7 +256,7 @@ VIEWS.reglas = () => {
 
 /* ---------- MISIONES ---------- */
 VIEWS.misiones = () => {
-  app.innerHTML = hdr("¿Quién eres?") + `<p>Toca tu nombre. Sé honesto/a: no mires las misiones de otros 🤫</p>` +
+  app.innerHTML = hdr("¿Quién eres?") + helpBtn('mision','misiones') + `<p>Toca tu nombre. Sé honesto/a: no mires las misiones de otros 🤫</p>` +
     COCHES.map(c => `<div class="carlabel">${esc(c.nombre)}</div><div class="grid2">` +
       [c.conductor, ...c.pasajeros].map(n => {
         const i = PERSONAS.findIndex(p => p.nombre === n);
@@ -271,7 +285,7 @@ VIEWS.misionVer = i => {
 /* ---------- QUIZ ---------- */
 let Q = null; // estado de partida
 VIEWS.quizCoche = () => {
-  app.innerHTML = hdr("¿Qué coche sois?") + `<p>Un solo móvil por coche. Quien conduce no juega 🚗</p><div class="menu">` +
+  app.innerHTML = hdr("¿Qué coche sois?") + helpBtn('concurso','quizCoche') + `<p>Un solo móvil por coche. Quien conduce no juega 🚗</p><div class="menu">` +
     COCHES.map(c => `<button onclick="go('quizRonda',${c.id})"><span class="ico">🚗</span><span><b>${esc(c.nombre)}</b><small>${esc(c.pasajeros.join(", "))}</small></span></button>`).join("") + `</div>`;
 };
 VIEWS.quizRonda = cid => {
@@ -360,7 +374,7 @@ VIEWS.quizFin = ({cid, r}) => {
 
 /* ---------- PORRA ---------- */
 VIEWS.porra = () => {
-  app.innerHTML = hdr("La porra") + `
+  app.innerHTML = hdr("La porra") + helpBtn('porra','porra') + `
     <div class="card"><p style="margin-top:0">Es la <b>primera Behobia de Isabel</b>. ¿Cuánto tardará? Gana quien más se acerque a su tiempo real. ¡Premio de honor para quien clave el suyo!</p>
     <label>¿Quién eres?</label>
     <select id="yo" style="width:100%;padding:14px;border-radius:12px;font:inherit;font-size:18px;background:#fffdf6;color:#0b1f3a">
@@ -408,6 +422,7 @@ function total(cid){ const m = marcador()[cid] || {}; return CATS.reduce((s,[k])
 VIEWS.panel = () => {
   const m = marcador();
   app.innerHTML = hdr("Panel de Isabel") + `
+    <button class="welcome" style="background:var(--lime);color:var(--ink)" onclick="go('guiaIsabel')"><span style="font-size:30px">📖</span><span><b>Tu guía y el enlace para el grupo</b><small>Qué hacer en cada momento</small></span></button>
     <div class="card"><h3>🔑 Código ronda 2</h3><p style="margin-bottom:0">Dilo en voz alta en Burgos: <span class="pill" style="font-size:18px;background:var(--lime);color:var(--ink)">${CODIGO_RONDA2}</span></p></div>
     <div class="card"><h3>📸 Reto de Burgos (hasta 100 pts)</h3>
       <p>Cada coche tiene <b>5 minutos</b> para recrear con lo que tenga a mano <b>la foto de llegada a meta de la Behobia</b>: pancarta, medalla, cronómetro, público… Isabel puntúa la creatividad.</p>
@@ -434,6 +449,78 @@ VIEWS.clasif = () => {
 VIEWS.revelar = () => {
   app.innerHTML = hdr("Las misiones","panel") + `<div class="card">` +
     PERSONAS.map((p,i) => `<div class="reveal"><b>${esc(p.nombre)}</b> → ${esc(mision(i))}</div>`).join("") + `</div>`;
+};
+
+/* ---------- GUÍA ---------- */
+const GUIA = {
+  inicio: { e:"📱", t:"Abrir y moverse por la web", pasos:[
+    ["img/home.jpg","Este es el <b>menú principal</b>. Cada botón es un juego: toca el que quieras."],
+    [null,"Para volver atrás, toca la <b>flecha ←</b> de arriba a la izquierda."],
+    [null,"💡 Truco: fija este enlace en el chat de WhatsApp para encontrarlo rápido."]],
+    aviso:"🚗 <b>Regla de oro:</b> quien conduce <b>NO toca el móvil</b>. Puede gritar las respuestas, eso sí." },
+  mision: { e:"🕵️", t:"Tu misión secreta", ir:"misiones", pasos:[
+    ["img/nombres.jpg","Toca <b>«Mi misión secreta»</b> y luego <b>tu nombre</b>. Hazlo en <b>tu propio móvil</b> y que nadie mire."],
+    ["img/confirmar.jpg","Toca <b>«Sí, soy yo»</b>."],
+    ["img/mision.jpg","Lee tu misión y quién es tu <b>objetivo</b>. Después toca <b>«Ocultar»</b>."]],
+    nota:"⏳ Tienes hasta la <b>cena del sábado</b> para cumplirla sin que te pillen. Puedes volver a mirarla cuando quieras.<br>🏆 Al final Isabel las revela todas: cada misión cumplida da <b>50 puntos</b> a tu coche." },
+  concurso: { e:"🧠", t:"El concurso por coches", ir:"quizCoche", pasos:[
+    ["img/coches.jpg","Se juega con <b>UN solo móvil por coche</b> (copiloto o alguien de atrás). Toca <b>«Concurso por coches»</b> y elige <b>vuestro coche</b>."],
+    ["img/rondas.jpg","Toca la <b>Ronda 1</b> (Madrid → Burgos)."],
+    ["img/pregunta.jpg","Leed la pregunta en voz alta y <b>tocad la respuesta</b>. ¡Hay cuenta atrás! Cuanto antes respondáis, más puntos."],
+    ["img/respuesta.jpg","Verde = acierto. Toca <b>«Siguiente»</b>."],
+    ["img/resultado.jpg","Al final, toca el botón verde <b>«Mandar resultado al grupo»</b> y elige el grupo de WhatsApp."],
+    ["img/codigo.jpg","En <b>Burgos</b> Isabel dirá un código. Escribidlo para abrir la <b>Ronda 2</b>."]],
+    nota:"🃏 El botón <b>50/50</b> quita dos respuestas malas. Una vez por ronda (el coche de Raúl, dos)." },
+  porra: { e:"⏱️", t:"La porra", ir:"porra", pasos:[
+    ["img/porra.jpg","Toca <b>«La porra»</b> y elige <b>tu nombre</b> en la lista."],
+    [null,"Escribe cuánto crees que tardará <b>Isabel</b> y cuánto tardarás <b>tú</b>. Así: <span class='code'>1:55</span> (horas:minutos)."],
+    [null,"Si eres veterano (Luis, Fernando o Raúl), deja un <b>consejo</b> para Isabel."],
+    [null,"Toca el botón verde. Se abre WhatsApp: elige el <b>grupo</b> y dale a <b>enviar</b>."]],
+    nota:"🏆 Gana quien más se acerque al tiempo real de Isabel. ¡Premio de honor para quien clave el suyo!" },
+  puntos: { e:"🏆", t:"Cómo gana un coche", pasos:[
+    [null,"<b>Concurso:</b> 100 puntos por acierto y hasta 50 más por responder rápido. Dos rondas de 8 preguntas."],
+    [null,"<b>Reto de Burgos:</b> en la parada, Isabel anuncia un reto para cada coche. Hasta 100 puntos."],
+    [null,"<b>Misiones secretas:</b> 50 puntos al coche por cada misión cumplida."],
+    [null,"En la <b>cena del sábado</b> Isabel revela las misiones y enseña la clasificación final."]] },
+};
+function helpBtn(k, from){ return `<button class="helplink" onclick="go('guia',{k:'${k}',from:'${from}'})">❓ ¿Cómo funciona esto? Toca aquí</button>`; }
+
+VIEWS.ayuda = () => {
+  app.innerHTML = hdr("Guía del juego") + `<p style="font-size:18px">Toca cada apartado para ver cómo se juega, con dibujos.</p><div class="menu">` +
+    Object.entries(GUIA).map(([k,g],i) => `<button onclick="go('guia',{k:'${k}',from:'ayuda'})"><span class="ico">${g.e}</span><span><b>${i+1}. ${g.t}</b><small>Ver paso a paso</small></span></button>`).join("") +
+    `</div>`;
+};
+VIEWS.guia = ({k, from}) => {
+  const g = GUIA[k], keys = Object.keys(GUIA), idx = keys.indexOf(k), next = keys[idx+1];
+  app.innerHTML = hdr(`${g.e} ${g.t}`, from || "ayuda") +
+    (g.aviso ? `<div class="gwarn">${g.aviso}</div>` : "") +
+    g.pasos.map(([img,txt],i) => `<div class="gstep"><span class="gn">${i+1}</span><p style="display:inline">${txt}</p>${img?`<img src="${img}" alt="" loading="lazy">`:""}</div>`).join("") +
+    (g.nota ? `<div class="gnote">${g.nota}</div>` : "") +
+    (g.ir ? `<button class="btn" onclick="go('${g.ir}')">¡Entendido, a jugar! →</button>` : "") +
+    (from === "ayuda" && next ? `<button class="btn sec" onclick="go('guia',{k:'${next}',from:'ayuda'})">Siguiente: ${GUIA[next].t} →</button>` : "") +
+    `<button class="btn sec" onclick="go('home')">Menú principal</button>`;
+};
+VIEWS.reglas = () => go('ayuda');
+
+/* Guía privada de Isabel */
+VIEWS.guiaIsabel = () => {
+  const url = location.href.split("#")[0].split("?")[0];
+  const msg = `¡Hola equipo! 🏃‍♀️ Para el viaje a la Behobia he preparado un juego. Abrid este enlace en el móvil:\n👉 ${url}\nLo primero: tocad «¿Primera vez? Empieza aquí» y después entrad en «Mi misión secreta». ¡Que nadie os vea! 🤫\nEn el coche jugamos al concurso (¡el conductor no!).`;
+  app.innerHTML = hdr("Tu guía, Isabel","panel") + `
+    <div class="gnote">🤫 Esto solo lo ves tú. Aquí están tus claves y qué hacer en cada momento.</div>
+    <div class="gstep"><span class="gn">1</span><p style="display:inline"><b>Antes de salir:</b> manda el enlace al grupo de WhatsApp con este botón.</p>
+      <a href="${wa(msg)}" target="_blank" style="text-decoration:none"><button class="btn wa">📲 Mandar el enlace al grupo</button></a></div>
+    <div class="card"><h3>🔑 Tus claves</h3><p style="font-size:18px;margin-bottom:0">PIN del panel: <span class="code">${PIN_PRESENTADORA}</span><br>Código ronda 2: <span class="code">${CODIGO_RONDA2}</span></p></div>
+    <div class="gwarn">📱 Usa <b>siempre este mismo móvil</b> para el panel: los puntos se guardan aquí. En tu coche, que lleve el concurso <b>Lucía</b>. ¡Tú no mires las preguntas!</div>
+    <h3 style="margin:18px 0 10px">🗓️ Qué hacer en cada momento</h3>
+    <div class="tl"><b>🚗 Salida de Madrid</b><span>Manda el enlace. Que todos vean su misión. Cada coche juega la <b>Ronda 1</b>.</span></div>
+    <div class="tl"><b>☕ Parada en Burgos</b><span>Entra en el panel. Di en voz alta el código <span class="code">${CODIGO_RONDA2}</span>. Lee el <b>reto de la foto</b> y da a cada coche de 0 a 100 puntos.</span></div>
+    <div class="tl"><b>🚗 Burgos → Donosti</b><span>Cada coche juega la <b>Ronda 2</b> y manda sus puntos al grupo. Apúntalos en el marcador.</span></div>
+    <div class="tl"><b>🍽️ Cena del sábado</b><span>Toca <b>«Revelar todas»</b> y lee las misiones en voz alta. Cada misión cumplida: <b>50 puntos</b>. Luego <b>«Mostrar clasificación»</b>. 🏆</span></div>
+    <div class="tl"><b>🏁 Después de la carrera</b><span>Mirad en WhatsApp quién acertó tu tiempo en la porra.</span></div>
+    <div class="gstep"><span class="gn">2</span><p style="display:inline">En el <b>marcador</b>, escribe los puntos de cada coche en su casilla (R1, R2, Burgos, Misiones). Se suman solos.</p><img src="img/marcador.jpg" alt=""></div>
+    <div class="gstep"><span class="gn">3</span><p style="display:inline">Toca <b>«Mostrar clasificación»</b> y enseña el móvil a todos.</p><img src="img/clasif.jpg" alt=""></div>
+    <button class="btn" onclick="go('panel')">Volver al panel</button>`;
 };
 
 go('home');
