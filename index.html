@@ -138,8 +138,6 @@ const COCHES = [
   { id:4, nombre:"Coche de Paula Rovira",conductor:"Paula Rovira", pasajeros:["Rosa","Sandra"] },
   { id:5, nombre:"Coche de Jorge",       conductor:"Jorge",        pasajeros:["José Enrique","Merche","Maite"] },
 ];
-const VETERANOS = ["Luis","Fernando","Raúl"];
-const DEBUTANTE = "Isabel";
 const PIN_PRESENTADORA = "1919";
 const CODIGO_RONDA2 = "MORCILLA";
 const SEGUNDOS = 25;
@@ -152,7 +150,7 @@ const MISIONES = [
   "Logra que {T} te enseñe una foto de su móvil (mascota, hijos, vacaciones…).",
   "Choca los cinco con {T} tres veces antes de la cena del sábado.",
   "Haz que {T} pruebe algo típico de Burgos y que te dé las gracias.",
-  "Averigua el mejor tiempo de {T} en cualquier carrera.",
+  "Averigua cuál es la carrera o el reto deportivo más loco que ha hecho {T}.",
   "Consigue que {T} te dé un consejo para la carrera… y que te lo repita.",
   "Logra que {T} cante, aunque sea un trozo, alguna canción.",
   "Haz que {T} se ría con un chiste malo tuyo.",
@@ -166,22 +164,46 @@ const MISIONES = [
 
 const RONDAS = {
   1: { titulo:"Ronda 1 · Madrid → Burgos", preguntas:[
+    { q:"¿Cuántos coches forman esta expedición?", o:["3","4","5","6"], a:2,
+      f:"Cinco coches rumbo a Donosti. ¡Una caravana de campeones!" },
     { q:"¿Cuántos kilómetros tiene la Behobia–San Sebastián?", o:["21,097 km","20 km","18 km","25 km"], a:1,
       f:"Son 20 km, no una media maratón. ¡Aunque con las cuestas parecen más!" },
     { q:"¿En qué año se corrió la primera Behobia?", o:["1919","1951","1936","1979"], a:0,
       f:"El 30 de marzo de 1919. Más de 100 años de historia." },
-    { q:"¿Cuántos del grupo ya han corrido la Behobia antes?", o:["Ninguno","Uno","Tres","Todos menos Isabel"], a:2,
+    { q:"Saliendo de Madrid por la A-1, ¿qué puerto de montaña cruzáis?", o:["Navacerrada","Somosierra","Despeñaperros","Pajares"], a:1,
+      f:"Somosierra, a unos 1.444 m. Al otro lado ya estáis en la provincia de Segovia, en Castilla y León." },
+    { q:"¿Cuántos del grupo ya han corrido la Behobia antes?", o:["Ninguno","Uno","Tres","Todos"], a:2,
       f:"Luis, Fernando y Raúl. ¡Veteranos, os toca dar consejos!" },
+    { q:"¿Cuál es la comunidad autónoma más grande de España en extensión?", o:["Andalucía","Castilla y León","Castilla-La Mancha","Aragón"], a:1,
+      f:"Castilla y León, con unos 94.000 km². Burgos es una de sus nueve capitales de provincia." },
     { q:"¿Qué es el Papamoscas de Burgos?", o:["Un pájaro típico de la sierra","Un dulce de hojaldre","Una figura de la catedral que abre la boca al dar la hora","Un bar mítico de la Plaza Mayor"], a:2,
       f:"Está en lo alto de la nave de la catedral y abre la boca al sonar las campanadas." },
+    { q:"En una maratón, ¿qué es «el muro»?", o:["Una cuesta muy empinada del recorrido","El cartel gigante de la meta","El bajón de energía hacia el km 30-35","La zona donde reparten el agua"], a:2,
+      f:"Es cuando se agotan las reservas de energía. La Behobia, con 20 km, se queda antes del muro… pero las cuestas se notan igual." },
     { q:"¿Qué lleva la auténtica morcilla de Burgos?", o:["Patata","Arroz","Pan","Garbanzos"], a:1,
       f:"Arroz, cebolla, sangre, manteca y especias." },
+    { q:"¿Por qué es famosa Aranda de Duero, de camino a Burgos?", o:["Por su marisco","Por su fabada","Por su lechazo asado y sus vinos","Por su pulpo"], a:2,
+      f:"Lechazo asado en horno de leña y los vinos de la Ribera del Duero." },
     { q:"¿Cómo se llamaba el caballo del Cid?", o:["Rocinante","Bucéfalo","Babieca","Marengo"], a:2,
       f:"Babieca. Rocinante era el de don Quijote." },
+    { q:"¿Qué río atraviesa la ciudad de Burgos?", o:["Duero","Ebro","Pisuerga","Arlanzón"], a:3,
+      f:"El Arlanzón. El Duero pasa por otras ciudades como Soria o Zamora." },
+    { q:"¿En qué año declaró la UNESCO Patrimonio de la Humanidad a la Catedral de Burgos?", o:["1962","1984","1999","2007"], a:1,
+      f:"En 1984. Es la única catedral española con ese título ella sola, sin el resto de la ciudad." },
     { q:"¿Por qué es famosa Atapuerca, cerca de Burgos?", o:["Por sus bodegas","Por sus yacimientos de los primeros humanos de Europa","Por un monasterio templario","Por una batalla napoleónica"], a:1,
       f:"Sus yacimientos son clave para conocer la evolución humana." },
+    { q:"¿Dónde se expone el Guernica de Picasso?", o:["Museo del Prado","Museo Guggenheim de Bilbao","Museo Reina Sofía","Museo Thyssen"], a:2,
+      f:"En el Reina Sofía, en Madrid. Y Gernika es un pueblo de Bizkaia, ya en Euskadi." },
     { q:"¿Cuánto mide una maratón?", o:["40 km justos","42,195 km","41,5 km","45 km"], a:1,
       f:"42,195 km. La Behobia, con 20, no es ni media… pero casi." },
+    { q:"¿De qué Juegos Olímpicos sale la distancia de 42,195 km de la maratón?", o:["Atenas 1896","París 1900","Londres 1908","Berlín 1936"], a:2,
+      f:"De Londres 1908: salieron del castillo de Windsor y acabaron ante el palco real. La distancia se fijó oficialmente en 1921." },
+    { q:"¿Qué cena es la favorita de los corredores la noche antes de una carrera?", o:["Cocido madrileño","Pasta","Fabada","Cochinillo asado"], a:1,
+      f:"Pasta: los hidratos cargan las pilas. El cocido, mejor después de la carrera." },
+    { q:"En running, ¿qué es un «negative split»?", o:["Salir a tope y aguantar como se pueda","Correr la segunda mitad más rápido que la primera","Parar a beber en cada avituallamiento","Correr sin reloj"], a:1,
+      f:"Acabar más fuerte de lo que empezaste. Es el truco de los que llegan frescos a la meta." },
+    { q:"¿Cuántos kilómetros hay por carretera de Madrid a San Sebastián?", o:["Unos 270 km","Unos 470 km","Unos 670 km","Unos 870 km"], a:1,
+      f:"Unos 470 km, casi 5 horas con parada. ¡Paciencia, equipo!" },
   ]},
   2: { titulo:"Ronda 2 · Burgos → Donosti", preguntas:[
     { q:"¿Dónde está la salida de la Behobia?", o:["En Hondarribia","En Behobia, un barrio de Irun junto a Francia","En Pasaia","En Hendaya (Francia)"], a:1,
@@ -192,14 +214,38 @@ const RONDAS = {
       f:"En 1659. Es una isla que España y Francia gestionan por turnos de 6 meses." },
     { q:"¿Cuántos corredores tomaron la salida en la primera edición?", o:["7","22","150","1.000"], a:1,
       f:"22 atletas en 1919. Hoy son unos 30.000." },
+    { q:"¿Cómo se llama la playa más famosa de Donosti?", o:["Zurriola","Ondarreta","La Concha","Santa Clara"], a:2,
+      f:"La Concha, con forma de concha. Zurriola es la de los surfistas." },
     { q:"¿Cuál es el alto más temido del recorrido?", o:["Jaizkibel","Igueldo","Gaintxurizketa","Urgull"], a:2,
       f:"Gaintxurizketa. Luego llega Miracruz, casi al final." },
+    { q:"¿Cómo se dice «gracias» en euskera?", o:["Kaixo","Agur","Eskerrik asko","Aupa"], a:2,
+      f:"Eskerrik asko. «Kaixo» es hola y «agur», adiós." },
     { q:"¿Dónde está la meta?", o:["En la playa de la Concha","En el estadio de Anoeta","En el Boulevard","En el Kursaal"], a:2,
       f:"En el Boulevard, en pleno centro de Donosti." },
+    { q:"¿Qué es el txakoli?", o:["Un queso de oveja","Un vino blanco ligero y fresco","Un licor de hierbas","Una sidra"], a:1,
+      f:"Un vino blanco ligero y afrutado, que se sirve escanciado desde lo alto. Típico de Getaria." },
     { q:"¿Quién hizo el Peine del Viento?", o:["Jorge Oteiza","Eduardo Chillida","Rafael Moneo","Frank Gehry"], a:1,
       f:"Eduardo Chillida, donostiarra. Moneo hizo el Kursaal." },
+    { q:"¿Qué monte de Donosti tiene un funicular y un parque de atracciones de 1912?", o:["Urgull","Ulia","Igueldo","Jaizkibel"], a:2,
+      f:"Igueldo: funicular de madera y parque de atracciones desde 1912, con vistas a toda la bahía." },
+    { q:"¿Qué monte, junto al puerto, tiene el castillo de la Mota y un gran Sagrado Corazón en la cima?", o:["Ulia","Aiako Harria","Igueldo","Urgull"], a:3,
+      f:"Urgull. Se sube andando desde la Parte Vieja." },
     { q:"¿Qué lleva una Gilda, el pintxo nacido en Donosti?", o:["Pimiento, gamba y huevo","Guindilla, aceituna y anchoa","Jamón, queso y tomate","Bacalao y pimiento"], a:1,
       f:"Se llama así por Rita Hayworth: «verde, salada y un poco picante»." },
+    { q:"¿Qué tarta, nacida en un bar de la Parte Vieja de Donosti, se ha hecho famosa en medio mundo?", o:["Tarta de Santiago","Tarta de queso «quemada»","Tarta Sacher","Tarta tatin"], a:1,
+      f:"La tarta de queso al estilo de La Viña: tostada por fuera y cremosa por dentro." },
+    { q:"¿Qué festival se celebra en Donosti cada septiembre?", o:["Festival de la Sidra","Festival Internacional de Cine","Semana Grande","Festival de Jazz"], a:1,
+      f:"El Zinemaldia, el Festival de Cine, desde 1953. La Semana Grande es en agosto y el Jazzaldia en julio." },
+    { q:"¿En qué año fue Donostia Capital Europea de la Cultura?", o:["1992","2008","2016","2024"], a:2,
+      f:"En 2016, junto a Breslavia (Polonia)." },
+    { q:"¿Cuánto tarda más o menos el ganador de la Behobia en hacer los 20 km?", o:["Unos 40 minutos","Una hora","Hora y media","Dos horas"], a:1,
+      f:"Alrededor de una hora: en 2024 ganó Chakib Lachgar en 1 h 02 min. ¡Unos 3 min por km!" },
+    { q:"Cada 20 de enero Donosti celebra su día con una gran…", o:["Romería","Tamborrada","Cabalgata","Verbena"], a:1,
+      f:"La Tamborrada: miles de donostiarras desfilan con tambores y barriles, vestidos de cocineros y soldados." },
+    { q:"¿De qué fruta se hace el pacharán?", o:["Cerezas","Moras","Endrinas","Manzanas"], a:2,
+      f:"De endrinas maceradas en anís. Típico de Navarra y del País Vasco." },
+    { q:"¿De qué provincia es capital Donostia?", o:["Bizkaia","Álava","Navarra","Gipuzkoa"], a:3,
+      f:"De Gipuzkoa. Bilbao es de Bizkaia y Vitoria-Gasteiz, la capital vasca, de Álava." },
   ]},
 };
 
@@ -238,21 +284,13 @@ VIEWS.home = () => {
     <div class="menu">
       <button class="main" onclick="go('misiones')"><span class="ico">🕵️</span><span><b>Mi misión secreta</b><small>Solo para tus ojos. No se la enseñes a nadie.</small></span></button>
       <button onclick="go('quizCoche')"><span class="ico">🧠</span><span><b>Concurso por coches</b><small>Juega el copiloto. ¡El conductor, ojos en la carretera!</small></span></button>
-      <button onclick="go('porra')"><span class="ico">⏱️</span><span><b>La porra</b><small>¿Cuánto tardará la debutante? ¿Y tú?</small></span></button>
+      <button onclick="go('porra')"><span class="ico">⏱️</span><span><b>La porra</b><small>Apuesta cuánto vas a tardar en la carrera</small></span></button>
       <button onclick="go('ayuda')"><span class="ico">📖</span><span><b>Guía y reglas</b><small>Cómo se juega, paso a paso</small></span></button>
       <button onclick="go('pin')"><span class="ico">🎤</span><span><b>Modo presentadora</b><small>Solo Isabel</small></span></button>
     </div>
-    <div class="footer">Hecho con cariño para la primera Behobia de Isabel 💛</div>`;
+    <div class="footer">Hecho con cariño para la expedición Behobia 💛</div>`;
 };
 
-VIEWS.reglas = () => {
-  app.innerHTML = hdr("Cómo se juega") + `
-    <div class="card"><h3>🕵️ Misiones secretas</h3><p>Cada uno tiene una misión con alguien de <b>otro coche</b>. Tenéis hasta la cena del sábado. Al final se revelan todas y cada misión cumplida suma <b>50 puntos</b> a tu coche.</p></div>
-    <div class="card"><h3>🧠 Concurso</h3><p>Dos rondas de 8 preguntas, una por tramo. Responde el copiloto (o quien vaya detrás) en un solo móvil por coche. Acertar da 100 puntos y responder rápido, hasta 50 extra. La <b>ronda 2</b> se desbloquea con un código que Isabel dará en Burgos.</p></div>
-    <div class="card"><h3>📸 Reto de Burgos</h3><p>En la parada, Isabel anunciará un reto para cada coche. Hasta 100 puntos.</p></div>
-    <div class="card"><h3>⏱️ La porra</h3><p>Apuesta el tiempo de Isabel en su debut y el tuyo. Gana quien más se acerque al tiempo real de Isabel. ¡Premio de honor para quien clave el suyo!</p></div>
-    <div class="card"><h3>🚗 Regla de oro</h3><p>Quien conduce <b>no toca el móvil</b>. Puede gritar respuestas, eso sí.</p></div>`;
-};
 
 /* ---------- MISIONES ---------- */
 VIEWS.misiones = () => {
@@ -291,11 +329,15 @@ VIEWS.quizCoche = () => {
 VIEWS.quizRonda = cid => {
   const c = COCHES.find(x => x.id === cid);
   const r1 = store.get(`res_${cid}_1`, null), r2 = store.get(`res_${cid}_2`, null);
+  const g1 = store.get(`prog_${cid}_1`, null), g2 = store.get(`prog_${cid}_2`, null);
+  const n1 = RONDAS[1].preguntas.length, n2 = RONDAS[2].preguntas.length;
+  const un2 = store.get(`unlock_${cid}`, false) || g2;
   app.innerHTML = hdr(esc(c.nombre),"quizCoche") + `
     <div class="menu">
-      <button class="main" onclick="${r1!==null?`go('quizFin',{cid:${cid},r:1})`:`startQuiz(${cid},1)`}"><span class="ico">🛣️</span><span><b>${RONDAS[1].titulo}</b><small>${r1!==null?`Ya jugada: ${r1} puntos`:"¡Arrancamos!"}</small></span></button>
-      <button onclick="${r2!==null?`go('quizFin',{cid:${cid},r:2})`:`go('codigo',${cid})`}"><span class="ico">${r2!==null?"✅":"🔒"}</span><span><b>${RONDAS[2].titulo}</b><small>${r2!==null?`Ya jugada: ${r2} puntos`:"Necesitas el código que da Isabel en Burgos"}</small></span></button>
-    </div>`;
+      <button class="main" onclick="${r1!==null?`go('quizFin',{cid:${cid},r:1})`:`startQuiz(${cid},1)`}"><span class="ico">🛣️</span><span><b>${RONDAS[1].titulo}</b><small>${r1!==null?`Ya jugada: ${r1} puntos`:g1?`Seguir por la pregunta ${g1.i+1} de ${n1}`:`${n1} preguntas · ¡Arrancamos!`}</small></span></button>
+      <button onclick="${r2!==null?`go('quizFin',{cid:${cid},r:2})`:un2?`startQuiz(${cid},2)`:`go('codigo',${cid})`}"><span class="ico">${r2!==null?"✅":un2?"🛣️":"🔒"}</span><span><b>${RONDAS[2].titulo}</b><small>${r2!==null?`Ya jugada: ${r2} puntos`:g2?`Seguir por la pregunta ${g2.i+1} de ${n2}`:un2?`${n2} preguntas · ¡Desbloqueada!`:"Necesitas el código que da Isabel en Burgos"}</small></span></button>
+    </div>
+    <div class="gnote" style="margin-top:14px">💾 Si cerráis la web o se va la cobertura, el concurso sigue donde lo dejasteis.</div>`;
 };
 VIEWS.codigo = cid => {
   app.innerHTML = hdr("Código secreto",`quizRonda',${cid},'`) + `
@@ -307,12 +349,13 @@ VIEWS.codigo = cid => {
 };
 function checkCodigo(cid){
   const v = $("#cod").value.trim().toUpperCase();
-  if(v === CODIGO_RONDA2) startQuiz(cid, 2);
+  if(v === CODIGO_RONDA2){ store.set(`unlock_${cid}`, true); startQuiz(cid, 2); }
   else $("#err").textContent = "Ese no es… ¿seguro que no lo has soñado?";
 }
 function startQuiz(cid, r){
   const c = COCHES.find(x => x.id === cid);
-  Q = { cid, r, i:0, pts:0, aciertos:0, comodines: c.comodines || 1 };
+  const prog = store.get(`prog_${cid}_${r}`, null);
+  Q = prog ? { cid, r, ...prog } : { cid, r, i:0, pts:0, aciertos:0, comodines: c.comodines || 1 };
   go('pregunta');
 }
 VIEWS.pregunta = () => {
@@ -352,21 +395,23 @@ function responder(k){
   const ultima = Q.i === RONDAS[Q.r].preguntas.length - 1;
   $("#after").innerHTML = `<div class="fact pop"><b>${k===p.a?`¡Bien! +${ganados}`:k===-1?"¡Se acabó el tiempo!":"¡Uy, casi!"}</b><br>${esc(p.f)}</div>
     <button class="btn" onclick="${ultima?"finQuiz()":"Q.i++;go('pregunta')"}">${ultima?"Ver resultado 🏁":"Siguiente →"}</button>`;
+  if(!ultima) store.set(`prog_${Q.cid}_${Q.r}`, { i:Q.i+1, pts:Q.pts, aciertos:Q.aciertos, comodines:Q.comodines });
 }
 function finQuiz(){
   store.set(`res_${Q.cid}_${Q.r}`, Q.pts);
   store.set(`ac_${Q.cid}_${Q.r}`, Q.aciertos);
+  store.set(`prog_${Q.cid}_${Q.r}`, null);
   go('quizFin', { cid:Q.cid, r:Q.r });
 }
 VIEWS.quizFin = ({cid, r}) => {
   const c = COCHES.find(x => x.id === cid);
   const pts = store.get(`res_${cid}_${r}`, 0), ac = store.get(`ac_${cid}_${r}`, "?");
-  const msg = `🏁 ${c.nombre} · ${RONDAS[r].titulo}\n✅ ${ac}/8 aciertos\n🔥 ${pts} puntos\n#OperaciónBehobia`;
+  const msg = `🏁 ${c.nombre} · ${RONDAS[r].titulo}\n✅ ${ac}/${RONDAS[r].preguntas.length} aciertos\n🔥 ${pts} puntos\n#OperaciónBehobia`;
   app.innerHTML = hdr("Resultado",`home`) + `
     <div class="card center pop">
       <div class="pill">${esc(c.nombre)}</div>
       <p style="margin:14px 0 4px">${RONDAS[r].titulo}</p>
-      <div class="big">${pts}</div><p>puntos · ${ac}/8 aciertos</p>
+      <div class="big">${pts}</div><p>puntos · ${ac}/${RONDAS[r].preguntas.length} aciertos</p>
     </div>
     <a href="${wa(msg)}" target="_blank" style="text-decoration:none"><button class="btn wa">📲 Mandar resultado al grupo</button></a>
     <button class="btn sec" onclick="go('quizRonda',${cid})">Volver</button>`;
@@ -375,36 +420,22 @@ VIEWS.quizFin = ({cid, r}) => {
 /* ---------- PORRA ---------- */
 VIEWS.porra = () => {
   app.innerHTML = hdr("La porra") + helpBtn('porra','porra') + `
-    <div class="card"><p style="margin-top:0">Es la <b>primera Behobia de Isabel</b>. ¿Cuánto tardará? Gana quien más se acerque a su tiempo real. ¡Premio de honor para quien clave el suyo!</p>
+    <div class="card"><p style="margin-top:0">Apuesta cuánto vas a tardar tú en la carrera. ¡Premio de honor para quien más se acerque a su propia apuesta!</p>
     <label>¿Quién eres?</label>
     <select id="yo" style="width:100%;padding:14px;border-radius:12px;font:inherit;font-size:18px;background:#fffdf6;color:#0b1f3a">
       <option value="">Elige tu nombre…</option>
       ${PERSONAS.map(p=>`<option>${esc(p.nombre)}</option>`).join("")}
     </select>
-    <label id="lblIsa">⏱️ Tiempo de Isabel</label>
-    <input id="tIsa" placeholder="Ej.: 2:05" inputmode="numeric">
     <label>🏃 Tu tiempo</label>
     <input id="tYo" placeholder="Ej.: 1:52" inputmode="numeric">
-    <div id="vet" class="hidden"><label>🎖️ Eres veterano/a: un consejo para la debutante</label>
-    <textarea id="consejo" rows="3" placeholder="Ej.: Guarda fuerzas para Miracruz…"></textarea></div>
     <p class="hint">Formato horas:minutos. Se manda al grupo de WhatsApp para que quede por escrito.</p>
-    <button class="btn wa" onclick="enviarPorra()">📲 Enviar mi porra al grupo</button></div>`;
-  $("#yo").onchange = e => {
-    const v = e.target.value;
-    $("#vet").classList.toggle("hidden", !VETERANOS.includes(v));
-    const esIsa = v === DEBUTANTE;
-    $("#tIsa").parentNode && ($("#tIsa").style.display = esIsa ? "none" : "");
-    $("#lblIsa").style.display = esIsa ? "none" : "";
-  };
+    <button class="btn wa" onclick="enviarPorra()">📲 Enviar mi apuesta al grupo</button></div>`;
 };
 function enviarPorra(){
-  const yo = $("#yo").value, ti = $("#tIsa").value.trim(), ty = $("#tYo").value.trim(), co = ($("#consejo")||{}).value || "";
+  const yo = $("#yo").value, ty = $("#tYo").value.trim();
   if(!yo){ alert("Elige tu nombre"); return; }
-  let msg = `⏱️ PORRA BEHOBIA · ${yo}\n`;
-  if(yo !== DEBUTANTE) msg += `👑 Isabel: ${ti || "?"}\n`;
-  msg += `🏃 Yo: ${ty || "?"}`;
-  if(co.trim()) msg += `\n🎖️ Consejo para Isabel: ${co.trim()}`;
-  window.open(wa(msg), "_blank");
+  if(!ty){ alert("Escribe tu tiempo, por ejemplo 1:52"); return; }
+  window.open(wa(`⏱️ PORRA BEHOBIA · ${yo}\n🏃 Mi tiempo: ${ty}`), "_blank");
 }
 
 /* ---------- PRESENTADORA ---------- */
@@ -473,12 +504,11 @@ const GUIA = {
     nota:"🃏 El botón <b>50/50</b> quita dos respuestas malas. Una vez por ronda (el coche de Raúl, dos)." },
   porra: { e:"⏱️", t:"La porra", ir:"porra", pasos:[
     ["img/porra.jpg","Toca <b>«La porra»</b> y elige <b>tu nombre</b> en la lista."],
-    [null,"Escribe cuánto crees que tardará <b>Isabel</b> y cuánto tardarás <b>tú</b>. Así: <span class='code'>1:55</span> (horas:minutos)."],
-    [null,"Si eres veterano (Luis, Fernando o Raúl), deja un <b>consejo</b> para Isabel."],
+    [null,"Escribe cuánto crees que vas a tardar <b>tú</b>. Así: <span class='code'>1:55</span> (horas:minutos)."],
     [null,"Toca el botón verde. Se abre WhatsApp: elige el <b>grupo</b> y dale a <b>enviar</b>."]],
-    nota:"🏆 Gana quien más se acerque al tiempo real de Isabel. ¡Premio de honor para quien clave el suyo!" },
+    nota:"🏆 Premio de honor para quien más se acerque a su propia apuesta." },
   puntos: { e:"🏆", t:"Cómo gana un coche", pasos:[
-    [null,"<b>Concurso:</b> 100 puntos por acierto y hasta 50 más por responder rápido. Dos rondas de 8 preguntas."],
+    [null,"<b>Concurso:</b> 100 puntos por acierto y hasta 50 más por responder rápido. Dos rondas de 20 preguntas."],
     [null,"<b>Reto de Burgos:</b> en la parada, Isabel anuncia un reto para cada coche. Hasta 100 puntos."],
     [null,"<b>Misiones secretas:</b> 50 puntos al coche por cada misión cumplida."],
     [null,"En la <b>cena del sábado</b> Isabel revela las misiones y enseña la clasificación final."]] },
@@ -517,7 +547,7 @@ VIEWS.guiaIsabel = () => {
     <div class="tl"><b>☕ Parada en Burgos</b><span>Entra en el panel. Di en voz alta el código <span class="code">${CODIGO_RONDA2}</span>. Lee el <b>reto de la foto</b> y da a cada coche de 0 a 100 puntos.</span></div>
     <div class="tl"><b>🚗 Burgos → Donosti</b><span>Cada coche juega la <b>Ronda 2</b> y manda sus puntos al grupo. Apúntalos en el marcador.</span></div>
     <div class="tl"><b>🍽️ Cena del sábado</b><span>Toca <b>«Revelar todas»</b> y lee las misiones en voz alta. Cada misión cumplida: <b>50 puntos</b>. Luego <b>«Mostrar clasificación»</b>. 🏆</span></div>
-    <div class="tl"><b>🏁 Después de la carrera</b><span>Mirad en WhatsApp quién acertó tu tiempo en la porra.</span></div>
+    <div class="tl"><b>🏁 Después de la carrera</b><span>Mirad en WhatsApp quién se ha acercado más a su apuesta de la porra.</span></div>
     <div class="gstep"><span class="gn">2</span><p style="display:inline">En el <b>marcador</b>, escribe los puntos de cada coche en su casilla (R1, R2, Burgos, Misiones). Se suman solos.</p><img src="img/marcador.jpg" alt=""></div>
     <div class="gstep"><span class="gn">3</span><p style="display:inline">Toca <b>«Mostrar clasificación»</b> y enseña el móvil a todos.</p><img src="img/clasif.jpg" alt=""></div>
     <button class="btn" onclick="go('panel')">Volver al panel</button>`;
