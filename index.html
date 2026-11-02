@@ -138,6 +138,7 @@ const COCHES = [
   { id:4, nombre:"Coche de Paula Rovira",conductor:"Paula Rovira", pasajeros:["Rosa","Sandra"] },
   { id:5, nombre:"Coche de Jorge",       conductor:"Jorge",        pasajeros:["José Enrique","Merche","Maite"] },
 ];
+const VETERANOS = ["Luis","Fernando","Raúl"];
 const PIN_PRESENTADORA = "1919";
 const CODIGO_RONDA2 = "MORCILLA";
 const SEGUNDOS = 25;
@@ -148,29 +149,31 @@ const MISIONES = [
   "Hazte un selfie en el que salga {T} detrás de ti sin que se dé cuenta.",
   "Consigue que {T} diga la palabra «agujetas».",
   "Logra que {T} te enseñe una foto de su móvil (mascota, hijos, vacaciones…).",
-  "Choca los cinco con {T} tres veces antes de la cena del sábado.",
-  "Haz que {T} pruebe algo típico de Burgos y que te dé las gracias.",
+  "Choca los cinco con {T} tres veces antes de la cena en San Juan de Luz.",
+  "Haz que {T} pruebe algo típico de Burgos en el desayuno y que te dé las gracias.",
   "Averigua cuál es la carrera o el reto deportivo más loco que ha hecho {T}.",
   "Consigue que {T} te dé un consejo para la carrera… y que te lo repita.",
   "Logra que {T} cante, aunque sea un trozo, alguna canción.",
   "Haz que {T} se ría con un chiste malo tuyo.",
   "Averigua de qué pueblo es la familia de {T}.",
   "Consigue que {T} te preste algo (gorra, gafas, boli…) y devuélveselo al final.",
-  "Haz que {T} diga «¡Aupa!» sin pedírselo directamente.",
-  "Consigue sentarte al lado de {T} en la cena del sábado.",
+  "Averigua cuál es la comida o el plato favorito de {T}.",
+  "Consigue sentarte al lado de {T} en la cena de San Juan de Luz.",
   "Hazte una foto con {T} en la que los dos pongáis exactamente la misma pose.",
   "Consigue que {T} te diga cuál es su canción para correr.",
 ];
 
 const RONDAS = {
-  1: { titulo:"Ronda 1 · Madrid → Burgos", preguntas:[
+  1: { titulo:"Ronda 1 · Alcalá → Burgos", preguntas:[
     { q:"¿Cuántos coches forman esta expedición?", o:["3","4","5","6"], a:2,
       f:"Cinco coches rumbo a Donosti. ¡Una caravana de campeones!" },
+    { q:"Habéis salido de Alcalá de Henares. ¿Qué famoso escritor nació allí?", o:["Lope de Vega","Quevedo","Cervantes","Góngora"], a:2,
+      f:"Miguel de Cervantes, en 1547. Y la ciudad es Patrimonio de la Humanidad por su universidad y su casco histórico." },
     { q:"¿Cuántos kilómetros tiene la Behobia–San Sebastián?", o:["21,097 km","20 km","18 km","25 km"], a:1,
       f:"Son 20 km, no una media maratón. ¡Aunque con las cuestas parecen más!" },
     { q:"¿En qué año se corrió la primera Behobia?", o:["1919","1951","1936","1979"], a:0,
       f:"El 30 de marzo de 1919. Más de 100 años de historia." },
-    { q:"Saliendo de Madrid por la A-1, ¿qué puerto de montaña cruzáis?", o:["Navacerrada","Somosierra","Despeñaperros","Pajares"], a:1,
+    { q:"Rumbo a Burgos por la A-1, ¿qué puerto de montaña cruzáis?", o:["Navacerrada","Somosierra","Despeñaperros","Pajares"], a:1,
       f:"Somosierra, a unos 1.444 m. Al otro lado ya estáis en la provincia de Segovia, en Castilla y León." },
     { q:"¿Cuántos del grupo ya han corrido la Behobia antes?", o:["Ninguno","Uno","Tres","Todos"], a:2,
       f:"Luis, Fernando y Raúl. ¡Veteranos, os toca dar consejos!" },
@@ -212,6 +215,8 @@ const RONDAS = {
       f:"El Bidasoa hace de frontera. El Urumea es el que cruza Donosti." },
     { q:"En la Isla de los Faisanes, muy cerca de la salida, se firmó…", o:["La Paz de los Pirineos","El Tratado de Tordesillas","La Paz de Westfalia","La Constitución de Bayona"], a:0,
       f:"En 1659. Es una isla que España y Francia gestionan por turnos de 6 meses." },
+    { q:"En 1660 se casó en San Juan de Luz un rey francés con una infanta española. ¿Quién era el rey?", o:["Luis XVI","Enrique IV","Napoleón","Luis XIV"], a:3,
+      f:"Luis XIV se casó con María Teresa de Austria, y así se selló la Paz de los Pirineos, la de la Isla de los Faisanes." },
     { q:"¿Cuántos corredores tomaron la salida en la primera edición?", o:["7","22","150","1.000"], a:1,
       f:"22 atletas en 1919. Hoy son unos 30.000." },
     { q:"¿Cómo se llama la playa más famosa de Donosti?", o:["Zurriola","Ondarreta","La Concha","Santa Clara"], a:2,
@@ -244,6 +249,8 @@ const RONDAS = {
       f:"La Tamborrada: miles de donostiarras desfilan con tambores y barriles, vestidos de cocineros y soldados." },
     { q:"¿De qué fruta se hace el pacharán?", o:["Cerezas","Moras","Endrinas","Manzanas"], a:2,
       f:"De endrinas maceradas en anís. Típico de Navarra y del País Vasco." },
+    { q:"Esta noche cenáis en San Juan de Luz (Saint-Jean-de-Luz). ¿En qué país está?", o:["España","Andorra","Francia","Portugal"], a:2,
+      f:"En Francia, a un paso de la frontera y muy cerca de la salida de la Behobia." },
     { q:"¿De qué provincia es capital Donostia?", o:["Bizkaia","Álava","Navarra","Gipuzkoa"], a:3,
       f:"De Gipuzkoa. Bilbao es de Bizkaia y Vitoria-Gasteiz, la capital vasca, de Álava." },
   ]},
@@ -275,7 +282,7 @@ const VIEWS = {};
 VIEWS.home = () => {
   app.innerHTML = `
     <div class="bib">
-      <div class="tag">Madrid → Donostia · 8 nov 2026</div>
+      <div class="tag">Alcalá → Donostia · 8 nov 2026</div>
       <div class="num">BEHOBIA</div>
       <div class="sub">Operación de los 5 coches</div>
       <div class="stripe"></div>
@@ -316,7 +323,7 @@ VIEWS.misionVer = i => {
       <div class="target">${esc(objetivo(i))}</div>
       <div class="task">${esc(mision(i))}</div>
     </div>
-    <div class="card" style="margin-top:16px"><p style="margin:0">⏳ Tienes hasta la <b>cena del sábado</b>. Si te pillan, disimula. Al final Isabel revelará todas las misiones.</p></div>
+    <div class="card" style="margin-top:16px"><p style="margin:0">⏳ Tienes hasta la <b>cena en San Juan de Luz</b>. Si te pillan, disimula. Al final Isabel revelará todas las misiones.</p></div>
     <button class="btn" onclick="go('home')">Entendido. Ocultar 🙈</button>`;
 };
 
@@ -428,14 +435,19 @@ VIEWS.porra = () => {
     </select>
     <label>🏃 Tu tiempo</label>
     <input id="tYo" placeholder="Ej.: 1:52" inputmode="numeric">
+    <div id="vet" class="hidden"><label>🎖️ Veteranos: un consejo para los que corren su primera Behobia</label>
+    <textarea id="consejo" rows="3" placeholder="Ej.: Guarda fuerzas para Miracruz…"></textarea></div>
     <p class="hint">Formato horas:minutos. Se manda al grupo de WhatsApp para que quede por escrito.</p>
     <button class="btn wa" onclick="enviarPorra()">📲 Enviar mi apuesta al grupo</button></div>`;
+  $("#yo").onchange = e => $("#vet").classList.toggle("hidden", !VETERANOS.includes(e.target.value));
 };
 function enviarPorra(){
-  const yo = $("#yo").value, ty = $("#tYo").value.trim();
+  const yo = $("#yo").value, ty = $("#tYo").value.trim(), co = ($("#consejo")||{}).value || "";
   if(!yo){ alert("Elige tu nombre"); return; }
   if(!ty){ alert("Escribe tu tiempo, por ejemplo 1:52"); return; }
-  window.open(wa(`⏱️ PORRA BEHOBIA · ${yo}\n🏃 Mi tiempo: ${ty}`), "_blank");
+  let msg = `⏱️ PORRA BEHOBIA · ${yo}\n🏃 Mi tiempo: ${ty}`;
+  if(co.trim()) msg += `\n🎖️ Consejo de veterano: ${co.trim()}`;
+  window.open(wa(msg), "_blank");
 }
 
 /* ---------- PRESENTADORA ---------- */
@@ -493,10 +505,10 @@ const GUIA = {
     ["img/nombres.jpg","Toca <b>«Mi misión secreta»</b> y luego <b>tu nombre</b>. Hazlo en <b>tu propio móvil</b> y que nadie mire."],
     ["img/confirmar.jpg","Toca <b>«Sí, soy yo»</b>."],
     ["img/mision.jpg","Lee tu misión y quién es tu <b>objetivo</b>. Después toca <b>«Ocultar»</b>."]],
-    nota:"⏳ Tienes hasta la <b>cena del sábado</b> para cumplirla sin que te pillen. Puedes volver a mirarla cuando quieras.<br>🏆 Al final Isabel las revela todas: cada misión cumplida da <b>50 puntos</b> a tu coche." },
+    nota:"⏳ Tienes hasta la <b>cena en San Juan de Luz</b> para cumplirla sin que te pillen. Puedes volver a mirarla cuando quieras.<br>🏆 Al final Isabel las revela todas: cada misión cumplida da <b>50 puntos</b> a tu coche." },
   concurso: { e:"🧠", t:"El concurso por coches", ir:"quizCoche", pasos:[
     ["img/coches.jpg","Se juega con <b>UN solo móvil por coche</b> (copiloto o alguien de atrás). Toca <b>«Concurso por coches»</b> y elige <b>vuestro coche</b>."],
-    ["img/rondas.jpg","Toca la <b>Ronda 1</b> (Madrid → Burgos)."],
+    ["img/rondas.jpg","Toca la <b>Ronda 1</b> (Alcalá → Burgos)."],
     ["img/pregunta.jpg","Leed la pregunta en voz alta y <b>tocad la respuesta</b>. ¡Hay cuenta atrás! Cuanto antes respondáis, más puntos."],
     ["img/respuesta.jpg","Verde = acierto. Toca <b>«Siguiente»</b>."],
     ["img/resultado.jpg","Al final, toca el botón verde <b>«Mandar resultado al grupo»</b> y elige el grupo de WhatsApp."],
@@ -505,13 +517,14 @@ const GUIA = {
   porra: { e:"⏱️", t:"La porra", ir:"porra", pasos:[
     ["img/porra.jpg","Toca <b>«La porra»</b> y elige <b>tu nombre</b> en la lista."],
     [null,"Escribe cuánto crees que vas a tardar <b>tú</b>. Así: <span class='code'>1:55</span> (horas:minutos)."],
+    [null,"Si eres veterano (Luis, Fernando o Raúl), deja un <b>consejo</b> para los que corren su primera Behobia."],
     [null,"Toca el botón verde. Se abre WhatsApp: elige el <b>grupo</b> y dale a <b>enviar</b>."]],
     nota:"🏆 Premio de honor para quien más se acerque a su propia apuesta." },
   puntos: { e:"🏆", t:"Cómo gana un coche", pasos:[
     [null,"<b>Concurso:</b> 100 puntos por acierto y hasta 50 más por responder rápido. Dos rondas de 20 preguntas."],
     [null,"<b>Reto de Burgos:</b> en la parada, Isabel anuncia un reto para cada coche. Hasta 100 puntos."],
     [null,"<b>Misiones secretas:</b> 50 puntos al coche por cada misión cumplida."],
-    [null,"En la <b>cena del sábado</b> Isabel revela las misiones y enseña la clasificación final."]] },
+    [null,"En la <b>cena en San Juan de Luz</b> Isabel revela las misiones y enseña la clasificación final."]] },
 };
 function helpBtn(k, from){ return `<button class="helplink" onclick="go('guia',{k:'${k}',from:'${from}'})">❓ ¿Cómo funciona esto? Toca aquí</button>`; }
 
@@ -543,10 +556,12 @@ VIEWS.guiaIsabel = () => {
     <div class="card"><h3>🔑 Tus claves</h3><p style="font-size:18px;margin-bottom:0">PIN del panel: <span class="code">${PIN_PRESENTADORA}</span><br>Código ronda 2: <span class="code">${CODIGO_RONDA2}</span></p></div>
     <div class="gwarn">📱 Usa <b>siempre este mismo móvil</b> para el panel: los puntos se guardan aquí. En tu coche, que lleve el concurso <b>Lucía</b>. ¡Tú no mires las preguntas!</div>
     <h3 style="margin:18px 0 10px">🗓️ Qué hacer en cada momento</h3>
-    <div class="tl"><b>🚗 Salida de Madrid</b><span>Manda el enlace. Que todos vean su misión. Cada coche juega la <b>Ronda 1</b>.</span></div>
-    <div class="tl"><b>☕ Parada en Burgos</b><span>Entra en el panel. Di en voz alta el código <span class="code">${CODIGO_RONDA2}</span>. Lee el <b>reto de la foto</b> y da a cada coche de 0 a 100 puntos.</span></div>
-    <div class="tl"><b>🚗 Burgos → Donosti</b><span>Cada coche juega la <b>Ronda 2</b> y manda sus puntos al grupo. Apúntalos en el marcador.</span></div>
-    <div class="tl"><b>🍽️ Cena del sábado</b><span>Toca <b>«Revelar todas»</b> y lee las misiones en voz alta. Cada misión cumplida: <b>50 puntos</b>. Luego <b>«Mostrar clasificación»</b>. 🏆</span></div>
+    <div class="tl"><b>🚗 Sábado 8:00 · Salida de Alcalá</b><span>Manda el enlace <b>la víspera</b> para que cada uno vea su misión antes de salir. En la carretera, cada coche juega la <b>Ronda 1</b>.</span></div>
+    <div class="tl"><b>☕ Desayuno en Burgos</b><span>Entra en el panel. Di en voz alta el código <span class="code">${CODIGO_RONDA2}</span>. Lee el <b>reto de la foto</b> y da a cada coche de 0 a 100 puntos.</span></div>
+    <div class="tl"><b>🚗 Burgos → San Sebastián</b><span>Cada coche juega la <b>Ronda 2</b> y manda sus puntos al grupo. Apúntalos en el marcador.</span></div>
+    <div class="tl"><b>🍽️ Comida en San Sebastián</b><span>Hora de comer y de apuntar los puntos que falten.</span></div>
+    <div class="tl"><b>🌙 Cena en San Juan de Luz</b><span>Toca <b>«Revelar todas»</b> y lee las misiones en voz alta. Cada misión cumplida: <b>50 puntos</b>. Luego <b>«Mostrar clasificación»</b>. 🏆</span></div>
+    <div class="tl"><b>🏃 Domingo · La Behobia</b><span>¡A disfrutar! Todos con su dorsal y su tiempo de la porra en la cabeza.</span></div>
     <div class="tl"><b>🏁 Después de la carrera</b><span>Mirad en WhatsApp quién se ha acercado más a su apuesta de la porra.</span></div>
     <div class="gstep"><span class="gn">2</span><p style="display:inline">En el <b>marcador</b>, escribe los puntos de cada coche en su casilla (R1, R2, Burgos, Misiones). Se suman solos.</p><img src="img/marcador.jpg" alt=""></div>
     <div class="gstep"><span class="gn">3</span><p style="display:inline">Toca <b>«Mostrar clasificación»</b> y enseña el móvil a todos.</p><img src="img/clasif.jpg" alt=""></div>
